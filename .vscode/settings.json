@@ -1,0 +1,9 @@
+{
+    "editor.defaultFormatter": "csharpier.csharpier-vscode",
+    "[csharp]": {
+        "editor.defaultFormatter": "csharpier.csharpier-vscode"
+    },
+    "[xml]": {
+        "editor.defaultFormatter": "csharpier.csharpier-vscode"
+    },
+}

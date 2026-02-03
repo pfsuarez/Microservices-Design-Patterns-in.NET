@@ -1,4 +1,5 @@
 using AppointmentsApi.Models;
+using AppointmentsApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +10,18 @@ namespace AppointmentsApi.Controllers
     public class AppointmentsController : ControllerBase
     {
         private readonly AppointmentContext _context;
+        private readonly PatientsApiClient _patientsApiClient;
+        private readonly DoctorsApiClient _doctorsApiClient;
 
-        public AppointmentsController(AppointmentContext context)
+        public AppointmentsController(
+            AppointmentContext context,
+            PatientsApiClient patientsApiClient,
+            DoctorsApiClient doctorsApiClient
+        )
         {
             _context = context;
+            _patientsApiClient = patientsApiClient;
+            _doctorsApiClient = doctorsApiClient;
         }
 
         // GET: api/Appointments
@@ -32,6 +41,22 @@ namespace AppointmentsApi.Controllers
             {
                 return NotFound();
             }
+
+            // Synchronously call api patients and doctors to get details.
+
+            // var patient = await _patientsApiClient.GetPatientAsync(appointment.PatientId);
+            // var doctor = await _doctorsApiClient.GetDoctorAsync(appointment.DoctorId);
+
+            // AppointmetDetails appointmetDetails = new AppointmetDetails(
+            //     id,
+            //     patient,
+            //     doctor,
+            //     appointment.Slot.Start,
+            //     appointment.Slot.End,
+            //     appointment.Location.RoomNumber,
+            //     appointment.Location.Building
+            // );
+            // return Ok(appointmetDetails);
 
             return appointment;
         }

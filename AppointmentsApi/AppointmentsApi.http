@@ -4,6 +4,10 @@ GET {{AppointmentsHostAddress}}/api/appointments
 Accept: application/json
 
 ###
+GET {{AppointmentsHostAddress}}/api/appointments/6d7fb1b0-8142-47f4-bb34-e6fd257d3a14
+Accept: application/json
+
+###
 POST {{AppointmentsHostAddress}}/api/appointments
 Content-Type: application/json
 

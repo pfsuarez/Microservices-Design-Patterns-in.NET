@@ -10,7 +10,7 @@ public class DocumentServiceImpl : DocumentService.DocumentServiceBase
         new Document
         {
             Id = "1",
-            PatientId = "123",
+            PatientId = "c1a2b3d4-e5f6-4789-9012-3456789abcde",
             Name = "Document 1",
         },
         new Document

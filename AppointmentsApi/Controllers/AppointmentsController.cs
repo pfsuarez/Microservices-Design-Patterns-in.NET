@@ -1,5 +1,8 @@
+using AppointmentsApi.Dtos;
 using AppointmentsApi.Models;
+using AppointmentsApi.Protos;
 using AppointmentsApi.Services;
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,16 +15,19 @@ namespace AppointmentsApi.Controllers
         private readonly AppointmentContext _context;
         private readonly PatientsApiClient _patientsApiClient;
         private readonly DoctorsApiClient _doctorsApiClient;
+        private readonly IConfiguration _configuration;
 
         public AppointmentsController(
             AppointmentContext context,
             PatientsApiClient patientsApiClient,
-            DoctorsApiClient doctorsApiClient
+            DoctorsApiClient doctorsApiClient,
+            IConfiguration configuration
         )
         {
             _context = context;
             _patientsApiClient = patientsApiClient;
             _doctorsApiClient = doctorsApiClient;
+            _configuration = configuration;
         }
 
         // GET: api/Appointments
@@ -47,16 +53,25 @@ namespace AppointmentsApi.Controllers
             // var patient = await _patientsApiClient.GetPatientAsync(appointment.PatientId);
             // var doctor = await _doctorsApiClient.GetDoctorAsync(appointment.DoctorId);
 
-            // AppointmetDetails appointmetDetails = new AppointmetDetails(
-            //     id,
-            //     patient,
-            //     doctor,
-            //     appointment.Slot.Start,
-            //     appointment.Slot.End,
-            //     appointment.Location.RoomNumber,
-            //     appointment.Location.Building
-            // );
-            // return Ok(appointmetDetails);
+            using var channel = GrpcChannel.ForAddress(
+                _configuration["GrpcEndpoints:DocumentsService"]!
+            );
+            var client = new DocumentService.DocumentServiceClient(channel);
+            var documents = await client.GetAllAsync(
+                new PatientId { Id = appointment.PatientId.ToString() }
+            );
+
+            AppointmentDetails appointmentDetails = new AppointmentDetails(
+                id,
+                //     patient,
+                //     doctor,
+                appointment.Slot.Start,
+                appointment.Slot.End,
+                appointment.Location.RoomNumber,
+                appointment.Location.Building,
+                documents
+            );
+            return Ok(appointmentDetails);
 
             return appointment;
         }

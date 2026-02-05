@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "DocumentsService.Protos";
+
+package DocumentSearch;
+
+service DocumentService {
+  rpc GetAll(PatientId) returns (DocumentList);
+  rpc Get(DocumentId) returns (Document);
+}
+
+message Empty { }
+
+message Document {
+  string patient_id = 1;
+  string name       = 2;
+  string id         = 3;
+}
+
+message DocumentList {
+  repeated Document documents = 1;
+}
+
+message DocumentId {
+  string id = 1;
+}
+
+message PatientId {
+  string id = 1;
+}

@@ -117,6 +117,36 @@ It's vital to stablish a __central entity__ or __aggregate root__ for your syste
 
 ## Chapter 03 - Synchronous Communication between Microservices
 ## Chapter 04 - Asynchronous Communication between Microservices
+Asynchronous communication in microservices
+- __Message queues:__ Services (__*Publisher or Producer*__) send messages to queues, which are then processed by consuming services (__*Consumer*__). Preserve the exact order of messages (__*FIFO*__) and ensure each message is processed once.
+  - e.g. Amazon Simple Queue Service (SQS), RabbitMQ, Azure Queue Storage, ActiveMQ.
+- __Publish Subscribe (pub-sub) model:__ Services publish messages to an intermediary messaging system (_event bus_ or _message broker_) topics, and multiple subscribers receive these messages. Event-driven architecture.
+  - command message: request some action to be performed.
+  - event message: announce that some action took place. aimed at microservices that need to post or modify data.
+  
+  - Event Definition: Create event class that encapsulate the data to be transmitted
+    - Event schema
+    - Event type
+    - Event versioning
+    - Event metadata
+  - Publishing events: a service emitting notifications about significant state changes within the system.
+  - Subscribing to event: a service registers interest in particular event types.
+    - At-most-once-delivery: a message is delivered only once. It may be lost, but it will never be duplicated. Useful for occasional message loss is acceptable.
+    - At-least-once-delivery: a message is delivery one or more times. It will not be lost, but duplicates may occur. Consumer must implement idempotency.
+    - Exactly once delivery: A message is delivery only once with no duplicates os loss.
+  - Event handling: process or mechanisms by which services respond to events.
+- __Event streaming:__ Implement continuos streams of events and services consume in real time.
+
+###### RabbitMQ
+- Producers and Consumers
+  - Producers send messages
+  - Consumers receive messages
+- Exchanges and Queues
+  - Producers send messages to exchanges, which route them to queues based on rules.
+  - Consumers retrieve messages frome these queues.
+- Bidings: association between exchanges and queues.
+- Message routing: Various exchange types (direct, topic, fanout, headers) to control message routing mechanisms
+
 ## Chapter 05 - Working with the Aggregator Pattern
 ## Chapter 06 - Working with the CQRS Pattern
 ## Chapter 07 - Applying Event-Sourcing Patterns

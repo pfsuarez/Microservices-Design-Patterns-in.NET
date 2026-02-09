@@ -3,6 +3,7 @@ using AppointmentsApi.Models;
 using AppointmentsApi.Protos;
 using AppointmentsApi.Services;
 using Grpc.Net.Client;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,17 +17,20 @@ namespace AppointmentsApi.Controllers
         private readonly PatientsApiClient _patientsApiClient;
         private readonly DoctorsApiClient _doctorsApiClient;
         private readonly IConfiguration _configuration;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public AppointmentsController(
             AppointmentContext context,
             PatientsApiClient patientsApiClient,
             DoctorsApiClient doctorsApiClient,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IPublishEndpoint publishEndpoint
         )
         {
             _context = context;
             _patientsApiClient = patientsApiClient;
             _doctorsApiClient = doctorsApiClient;
+            _publishEndpoint = publishEndpoint;
             _configuration = configuration;
         }
 
@@ -71,9 +75,8 @@ namespace AppointmentsApi.Controllers
                 appointment.Location.Building,
                 documents
             );
-            return Ok(appointmentDetails);
 
-            return appointment;
+            return Ok(appointmentDetails);
         }
 
         // PUT: api/Appointments/5
@@ -114,6 +117,16 @@ namespace AppointmentsApi.Controllers
         {
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
+
+            await _publishEndpoint.Publish<AppointmentCreated>(
+                new AppointmentCreated
+                {
+                    AppointmentId = appointment.AppointmentId,
+                    PatientId = appointment.PatientId,
+                    DoctorId = appointment.DoctorId,
+                    AppointmentDate = appointment.Slot.Start,
+                }
+            );
 
             return CreatedAtAction(
                 "GetAppointment",

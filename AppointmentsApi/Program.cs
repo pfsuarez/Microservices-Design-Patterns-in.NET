@@ -1,5 +1,8 @@
+using AppointmentsApi.Consumer;
 using AppointmentsApi.Models;
 using AppointmentsApi.Services;
+using Google.Protobuf.WellKnownTypes;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,25 @@ builder.Services.AddHttpClient<PatientsApiClient>(client =>
 builder.Services.AddHttpClient<DoctorsApiClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiEndpoints:DoctorsApi"]!);
+});
+
+builder.Services.AddTransient<IEmailService, EmailService>();
+
+builder.Services.AddMassTransit(options =>
+{
+    options.AddConsumer<AppointmentCreatedConsumer>();
+    options.UsingRabbitMq(
+        (context, cfg) =>
+        {
+            cfg.ReceiveEndpoint(
+                "appointment-created-queue",
+                e =>
+                {
+                    e.ConfigureConsumer<AppointmentCreatedConsumer>(context);
+                }
+            );
+        }
+    );
 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

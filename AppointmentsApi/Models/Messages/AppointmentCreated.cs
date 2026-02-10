@@ -1,4 +1,4 @@
-namespace AppointmentsApi.Models;
+namespace AppointmentsApi.Models.Messages;
 
 public class AppointmentCreated
 {
@@ -6,4 +6,6 @@ public class AppointmentCreated
     public Guid PatientId { get; set; }
     public Guid DoctorId { get; set; }
     public DateTime AppointmentDate { get; set; }
+    public DateTime Timestamp { get; set; }
+    public Guid MessageId { get; set; }
 }

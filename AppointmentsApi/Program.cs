@@ -35,6 +35,8 @@ builder.Services.AddMassTransit(options =>
                 "appointment-created-queue",
                 e =>
                 {
+                    e.PrefetchCount = 1;
+                    e.UseConcurrencyLimit(1);
                     e.ConfigureConsumer<AppointmentCreatedConsumer>(context);
                 }
             );

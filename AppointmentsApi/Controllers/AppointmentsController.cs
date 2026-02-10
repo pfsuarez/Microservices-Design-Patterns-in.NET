@@ -1,5 +1,6 @@
 using AppointmentsApi.Dtos;
 using AppointmentsApi.Models;
+using AppointmentsApi.Models.Messages;
 using AppointmentsApi.Protos;
 using AppointmentsApi.Services;
 using Grpc.Net.Client;
@@ -125,6 +126,8 @@ namespace AppointmentsApi.Controllers
                     PatientId = appointment.PatientId,
                     DoctorId = appointment.DoctorId,
                     AppointmentDate = appointment.Slot.Start,
+                    Timestamp = DateTime.UtcNow,
+                    MessageId = appointment.AppointmentId,
                 }
             );
 

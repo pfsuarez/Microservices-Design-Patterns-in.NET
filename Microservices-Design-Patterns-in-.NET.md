@@ -148,6 +148,11 @@ Asynchronous communication in microservices
 - Message routing: Various exchange types (direct, topic, fanout, headers) to control message routing mechanisms
 
 ## Chapter 05 - Working with the Aggregator Pattern
+
+__Aggregator pattern__
+- Facilitates data consolidation from multiple services into a single response.
+
+
 ## Chapter 06 - Working with the CQRS Pattern
 ## Chapter 07 - Applying Event-Sourcing Patterns
 ## Chapter 08 - Database Design Strategies for Microservices

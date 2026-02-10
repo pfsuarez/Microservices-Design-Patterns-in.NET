@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentsApi", "Appointm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsService", "DocumentsService\DocumentsService.csproj", "{F49215EC-3822-42FF-8170-9C4F949FF9D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareDashboard", "HealthcareDashboard\HealthcareDashboard.csproj", "{A458627C-C607-407B-AA94-CAF3B541A696}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{F49215EC-3822-42FF-8170-9C4F949FF9D2}.Release|x64.Build.0 = Release|Any CPU
 		{F49215EC-3822-42FF-8170-9C4F949FF9D2}.Release|x86.ActiveCfg = Release|Any CPU
 		{F49215EC-3822-42FF-8170-9C4F949FF9D2}.Release|x86.Build.0 = Release|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Debug|x64.Build.0 = Debug|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Debug|x86.Build.0 = Debug|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Release|x64.ActiveCfg = Release|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Release|x64.Build.0 = Release|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Release|x86.ActiveCfg = Release|Any CPU
+		{A458627C-C607-407B-AA94-CAF3B541A696}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
